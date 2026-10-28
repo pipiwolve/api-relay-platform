@@ -1,0 +1,555 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Hearth LifeOS 设计系统（全局 UI 规范）
+   - 外层浅灰底 #E8EAED + 极微弱噪点纹理
+   - 卡片/面板 #FFFFFF，8px 圆角，微弱弥散阴影
+   - 侧边栏 #1A1A1E 深色，选中项 3px 白色竖线，未选中 #A1A1AA
+   - 主色 #4C5EE0：focus 边框 / 选中指示 / 关键数字 / 链接 / Tab 下划线
+   - 主操作按钮主色填充（#4C5EE0），次级按钮药丸形（20px）
+   - 系统无衬线字体栈；150ms ease-in-out 细微过渡
+   ============================================================ */
+
+@layer base {
+  :root {
+    /* 圆角：8px */
+    --radius: 0.5rem;
+
+    /* 外层背景：#E8EAED */
+    --background: 216 7% 92%;
+    /* 主文字：#111111 */
+    --foreground: 0 0% 7%;
+
+    /* 卡片/面板：#FFFFFF */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 7%;
+
+    /* 弹出层：#FFFFFF */
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 7%;
+
+    /* 主色（Primary Accent）：#4C5EE0 深蓝紫 */
+    --primary: 233 70% 59%;
+    --primary-foreground: 0 0% 100%;
+
+    /* 次级/药丸面：#F5F5F7 */
+    --secondary: 240 6% 96%;
+    --secondary-foreground: 240 2% 23%;
+
+    /* 弱化区域：#F5F5F7 */
+    --muted: 240 6% 96%;
+    /* 副标题/弱化文字：#6E6E73 */
+    --muted-foreground: 240 2% 44%;
+
+    /* hover 强调：浅灰微深（ghost/菜单项 hover 底色） */
+    --accent: 220 8% 93%;
+    --accent-foreground: 240 2% 23%;
+
+    /* 语义色 */
+    --destructive: 358 66% 47%;          /* #C62828 */
+    --destructive-foreground: 0 0% 100%;
+    --destructive-bg: 350 100% 96%;       /* #FFEBEE */
+    --success: 123 46% 34%;              /* #2E7D32 */
+    --success-bg: 120 40% 94%;           /* #E8F5E9 */
+    --warning: 21 100% 45%;              /* #E65100 */
+    --warning-bg: 36 100% 94%;           /* #FFF3E0 */
+    --info: 210 79% 46%;                 /* #1565C0 */
+    --info-bg: 207 90% 95%;              /* #E3F2FD */
+
+    /* 边框与输入框：#E5E5EA */
+    --border: 240 6% 91%;
+    --input: 240 6% 91%;
+    /* Focus ring：#4C5EE0 */
+    --ring: 233 70% 59%;
+
+    /* 数据图表：主色领衔 + 中性/柔和辅助 */
+    --chart-1: 233 70% 59%; /* #4C5EE0 */
+    --chart-2: 210 79% 46%; /* #1565C0 */
+    --chart-3: 160 50% 42%;
+    --chart-4: 21 100% 45%;
+    --chart-5: 270 45% 58%;
+
+    /* 侧边栏：#1A1A1E 深色带微暖 */
+    --sidebar-background: 240 7% 11%;
+    /* 侧边栏未选中文字：#A1A1AA */
+    --sidebar-foreground: 240 5% 65%;
+    /* 侧边栏选中高亮：纯白 */
+    --sidebar-primary: 0 0% 100%;
+    --sidebar-primary-foreground: 240 7% 11%;
+    /* 侧边栏选中/hover 背景：#27272C */
+    --sidebar-accent: 240 6% 16%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 240 6% 15%;
+    --sidebar-ring: 233 70% 59%;
+
+    /* 渐变与阴影（极微弱弥散阴影） */
+    --gradient-primary: linear-gradient(135deg, hsl(233 70% 59%), hsl(250 60% 62%));
+    --gradient-card: linear-gradient(180deg, #FFFFFF, #FCFCFD);
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+    --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.07), 0 1px 3px rgba(76, 94, 224, 0.10);
+  }
+
+  /* 深色模式（保持可用） */
+  .dark {
+    --radius: 0.5rem;
+    --background: 240 6% 10%;
+    --foreground: 0 0% 95%;
+    --card: 240 5% 13%;
+    --card-foreground: 0 0% 95%;
+    --popover: 240 5% 13%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 233 70% 64%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 6% 18%;
+    --secondary-foreground: 0 0% 92%;
+    --muted: 240 6% 17%;
+    --muted-foreground: 240 5% 66%;
+    --accent: 240 6% 20%;
+    --accent-foreground: 0 0% 92%;
+    --destructive: 358 66% 56%;
+    --destructive-foreground: 0 0% 100%;
+    --destructive-bg: 358 66% 18%;
+    --success: 123 46% 46%;
+    --success-bg: 123 46% 16%;
+    --warning: 21 100% 56%;
+    --warning-bg: 21 100% 18%;
+    --info: 210 79% 56%;
+    --info-bg: 210 79% 18%;
+    --border: 240 5% 21%;
+    --input: 240 5% 21%;
+    --ring: 233 70% 64%;
+    --chart-1: 233 70% 64%;
+    --chart-2: 210 79% 56%;
+    --chart-3: 160 50% 50%;
+    --chart-4: 21 100% 56%;
+    --chart-5: 270 45% 64%;
+    --sidebar-background: 240 7% 9%;
+    --sidebar-foreground: 240 5% 65%;
+    --sidebar-primary: 0 0% 100%;
+    --sidebar-primary-foreground: 240 7% 9%;
+    --sidebar-accent: 240 6% 15%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 240 6% 14%;
+    --sidebar-ring: 233 70% 64%;
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.4);
+  }
+
+  * {
+    @apply border-border;
+    /* 细微过渡：仅颜色类属性（不含 transform/opacity，避免干扰 framer-motion） */
+    transition-property: color, background-color, border-color, box-shadow, fill, stroke;
+    transition-duration: 150ms;
+    transition-timing-function: ease-in-out;
+  }
+
+  /* 系统无衬线字体栈 */
+  html,
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: hsl(var(--foreground));
+    background-color: hsl(var(--background));
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* 极微弱噪点/纸张纹理（全局覆盖，透明度约 3.5%） */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 2147483000;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+  }
+
+  /* 输入框 focus：边框 #4C5EE0 + 微弱外发光 */
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    border-color: hsl(var(--ring)) !important;
+    box-shadow: 0 0 0 3px rgba(76, 94, 224, 0.14) !important;
+    outline: none !important;
+  }
+
+  /* placeholder：#A1A1AA */
+  input::placeholder,
+  textarea::placeholder {
+    color: #A1A1AA;
+  }
+}
+
+@layer components {
+  /* ---------- 排版 ---------- */
+  .page-heading {
+    font-size: 1.625rem; /* 26px */
+    font-weight: 600;
+    color: #111111;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+  }
+  .section-subheading {
+    font-size: 0.9375rem; /* 15px */
+    font-weight: 500;
+    color: #6E6E73;
+  }
+  .body-copy {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: #3A3A3C;
+    line-height: 1.55;
+  }
+
+  /* 标签文字：10-11px / 500 / #A1A1AA / 全大写 / letter-spacing 1px */
+  .tech-label,
+  .meta-label {
+    font-size: 0.6875rem; /* 11px */
+    font-weight: 500;
+    color: #A1A1AA;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .dark .tech-label,
+  .dark .meta-label {
+    color: #8E8E96;
+  }
+
+  /* ---------- 背景与卡片 ---------- */
+  /* 内容区基底：浅灰 + 极淡网格（保持工程感但不喧宾夺主） */
+  .blueprint-grid {
+    background-color: hsl(var(--background));
+    background-image:
+      linear-gradient(to right, rgba(17, 17, 17, 0.022) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(17, 17, 17, 0.022) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+  .blueprint-grid-fine {
+    background-color: hsl(var(--background));
+    background-image:
+      linear-gradient(to right, rgba(17, 17, 17, 0.02) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(17, 17, 17, 0.02) 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+  .dark .blueprint-grid,
+  .dark .blueprint-grid-fine {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  }
+
+  /* 卡片：#FFFFFF、8px 圆角、微弱弥散阴影（!important 压过 Card 组件自带 shadow 工具类） */
+  .bp-card {
+    position: relative;
+    border: 1px solid hsl(var(--border));
+    background-color: hsl(var(--card));
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card) !important;
+    transition: transform 150ms ease-in-out, box-shadow 150ms ease-in-out, border-color 150ms ease-in-out;
+  }
+
+  /* 卡片 hover 微交互：轻微上浮 + 发光边框 */
+  .bp-hover-lift {
+    transition: transform 150ms ease-in-out, box-shadow 150ms ease-in-out, border-color 150ms ease-in-out;
+  }
+  .bp-hover-lift:hover {
+    transform: translateY(-2px);
+    border-color: rgba(76, 94, 224, 0.30);
+    box-shadow: var(--shadow-hover) !important;
+  }
+
+  /* ---------- 按钮规范 ---------- */
+  /* 注意：button.bg-primary / a.bg-primary / *.bg-secondary / *.bg-background 等与
+     Tailwind utility 同名的元素选择器规则已移至本文件末尾（@layer 之外）。
+     原因：Tailwind 会对 @layer components 内与 utility 撞名的规则做相邻合并，
+     将元素选择器拼入转义 class（如 ...bg-primarybutton）且丢失逗号，
+     产出非法 CSS 导致 lightningcss 构建失败。非 layer 规则原样透传，不受影响。 */
+
+  /* 通用药丸按钮（自定义场景） */
+  .btn-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.875rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: #3A3A3C;
+    background-color: #F5F5F7;
+    border: 1px solid #E5E5EA;
+    border-radius: 20px;
+  }
+  .btn-pill:hover {
+    background-color: #EBEBEF;
+    border-color: #DCDCE2;
+    color: #111111;
+  }
+
+  /* 下拉选择器：药丸形浅色按钮 */
+  button[role='combobox'] {
+    border-radius: 20px !important;
+    background-color: #F5F5F7 !important;
+    border-color: #E5E5EA !important;
+    color: #3A3A3C !important;
+    font-size: 0.8125rem !important;
+    padding-left: 0.875rem !important;
+    padding-right: 0.625rem !important;
+    box-shadow: none !important;
+  }
+  button[role='combobox']:hover {
+    background-color: #EBEBEF !important;
+    border-color: #DCDCE2 !important;
+  }
+  button[role='combobox']:focus-visible {
+    border-color: #4C5EE0 !important;
+    box-shadow: 0 0 0 3px rgba(76, 94, 224, 0.14) !important;
+  }
+  .dark button[role='combobox'] {
+    background-color: hsl(240 6% 18%) !important;
+    border-color: hsl(240 6% 26%) !important;
+    color: hsl(0 0% 90%) !important;
+  }
+
+  /* ---------- 状态药丸标签（20px 圆角） ---------- */
+  .pill-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+    white-space: nowrap;
+  }
+  .pill-success {
+    background-color: #E8F5E9;
+    color: #2E7D32;
+    border: 1px solid rgba(46, 125, 50, 0.15);
+  }
+  .pill-warning {
+    background-color: #FFF3E0;
+    color: #E65100;
+    border: 1px solid rgba(230, 81, 0, 0.15);
+  }
+  .pill-destructive,
+  .pill-danger {
+    background-color: #FFEBEE;
+    color: #C62828;
+    border: 1px solid rgba(198, 40, 40, 0.15);
+  }
+  .pill-info {
+    background-color: #E3F2FD;
+    color: #1565C0;
+    border: 1px solid rgba(21, 101, 192, 0.15);
+  }
+  .pill-default {
+    background-color: #F5F5F7;
+    color: #6E6E73;
+    border: 1px solid #E5E5EA;
+  }
+  .dark .pill-success {
+    background-color: hsl(123 46% 16%);
+    color: hsl(123 46% 60%);
+  }
+  .dark .pill-warning {
+    background-color: hsl(21 100% 18%);
+    color: hsl(21 100% 64%);
+  }
+  .dark .pill-destructive,
+  .dark .pill-danger {
+    background-color: hsl(358 66% 18%);
+    color: hsl(358 66% 68%);
+  }
+  .dark .pill-info {
+    background-color: hsl(210 79% 18%);
+    color: hsl(210 79% 66%);
+  }
+  .dark .pill-default {
+    background-color: hsl(240 6% 18%);
+    color: hsl(240 2% 70%);
+    border-color: hsl(240 6% 24%);
+  }
+
+  /* ---------- Tab 导航：浅色底 + 选中 2px 主色下划线 + 未选中 #A1A1AA ---------- */
+  [role='tablist'] {
+    background-color: transparent !important;
+    border-bottom: 1px solid #E5E5EA;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    gap: 1.5rem !important;
+  }
+  .dark [role='tablist'] {
+    border-bottom-color: hsl(240 5% 24%);
+  }
+  [role='tab'] {
+    position: relative;
+    background: transparent !important;
+    color: #A1A1AA !important;
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+    padding: 0.625rem 0.25rem !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border-bottom: 2px solid transparent !important;
+    margin-bottom: -1px;
+    transition: color 150ms ease-in-out, border-color 150ms ease-in-out;
+  }
+  [role='tab']:hover {
+    color: #3A3A3C !important;
+  }
+  [role='tab'][data-state='active'] {
+    color: #111111 !important;
+    font-weight: 600 !important;
+    border-bottom-color: #4C5EE0 !important;
+  }
+  .dark [role='tab'] {
+    color: #8E8E96 !important;
+  }
+  .dark [role='tab']:hover {
+    color: hsl(0 0% 85%) !important;
+  }
+  .dark [role='tab'][data-state='active'] {
+    color: #FFFFFF !important;
+    border-bottom-color: hsl(233 70% 64%) !important;
+  }
+
+  /* ---------- 弹窗圆角 8px + 轻盈阴影（压过 shadow-lg） ---------- */
+  [role='dialog'],
+  [role='alertdialog'] {
+    border-radius: 8px !important;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+  }
+
+  /* ---------- 细线型进度条（4px） ---------- */
+  .thin-progress-track {
+    height: 4px;
+    background-color: hsl(var(--border));
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .thin-progress-bar {
+    height: 100%;
+    background-color: hsl(var(--primary));
+    border-radius: 2px;
+    transition: width 300ms ease-in-out;
+  }
+
+  /* ---------- 兼容既有装饰类（降为极浅） ---------- */
+  .hero-glow {
+    background: radial-gradient(circle at 50% 30%, rgba(76, 94, 224, 0.06) 0%, transparent 60%);
+  }
+  .bp-scanline {
+    background-image: repeating-linear-gradient(0deg, rgba(17, 17, 17, 0.015) 0 1px, transparent 1px 4px);
+  }
+  .mission-shimmer {
+    color: inherit;
+  }
+  .gradient-text {
+    background-image: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* ---------- 细滚动条 ---------- */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #D1D5DB transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: #D1D5DB;
+    border-radius: 3px;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: #9CA3AF;
+  }
+}
+
+/* ============================================================
+   按钮规范（置于 @layer 之外，Tailwind 原样透传不做合并）
+   - 主操作按钮：主色填充 #4C5EE0 / 8px 圆角 / 白字 / hover 提亮 #5A6AE2 / 按压反馈 #3C4FDD
+   - 次级/药丸按钮：#F5F5F7 浅色填充 + #E5E5EA 边框 + 20px 药丸
+   未分层规则优先于 @layer；元素+类选择器特异性高于 utility 类，覆盖行为与原先一致
+   ============================================================ */
+button.bg-primary,
+a.bg-primary {
+  background-color: #4C5EE0 !important;
+  color: #FFFFFF !important;
+  border-radius: 8px !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+  font-weight: 500;
+  transition: background-color 150ms ease-in-out, transform 100ms ease-in-out, box-shadow 150ms ease-in-out;
+}
+button.bg-primary:hover,
+a.bg-primary:hover {
+  background-color: #5A6AE2 !important;
+}
+button.bg-primary:active,
+a.bg-primary:active {
+  background-color: #3C4FDD !important;
+  transform: scale(0.98);
+}
+.dark button.bg-primary,
+.dark a.bg-primary {
+  background-color: hsl(233 70% 55%) !important;
+}
+.dark button.bg-primary:hover,
+.dark a.bg-primary:hover {
+  background-color: hsl(233 70% 62%) !important;
+}
+
+button.bg-secondary,
+button.bg-background,
+a.bg-secondary,
+a.bg-background {
+  background-color: #F5F5F7 !important;
+  color: #3A3A3C !important;
+  border: 1px solid #E5E5EA !important;
+  border-radius: 20px !important;
+  box-shadow: none !important;
+  font-weight: 500;
+  transition: background-color 150ms ease-in-out, border-color 150ms ease-in-out, color 150ms ease-in-out, transform 100ms ease-in-out;
+}
+button.bg-secondary:hover,
+button.bg-background:hover,
+a.bg-secondary:hover,
+a.bg-background:hover {
+  background-color: #EBEBEF !important;
+  border-color: #DCDCE2 !important;
+  color: #111111 !important;
+}
+button.bg-secondary:active,
+button.bg-background:active {
+  transform: scale(0.98);
+}
+.dark button.bg-secondary,
+.dark button.bg-background,
+.dark a.bg-secondary,
+.dark a.bg-background {
+  background-color: hsl(240 6% 18%) !important;
+  color: hsl(0 0% 90%) !important;
+  border-color: hsl(240 6% 26%) !important;
+}
+.dark button.bg-secondary:hover,
+.dark button.bg-background:hover {
+  background-color: hsl(240 6% 23%) !important;
+}
+
+/* 动画降级 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
